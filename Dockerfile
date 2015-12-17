@@ -10,14 +10,13 @@ MAINTAINER "Carl Boettiger and Dirk Eddelbuettel" rocker-maintainers@eddelbuette
 RUN apt-get update -qq \
 	&& apt-get dist-upgrade -y
 
+##### Not using littler so autotools-dev and automake are not needed #####
 ## From the Build-Depends of the Debian R package, plus subversion, and clang-3.5
 ## 
 ## Also add   git autotools-dev automake  so that we can build littler from source
 ##
 RUN apt-get update -qq \
 	&& apt-get install -t unstable -y --no-install-recommends \
-		automake \
-		autotools-dev \
 		bash-completion \
 		bison \
 		clang-3.5 \
@@ -106,6 +105,7 @@ RUN echo "R_LIBS=\${R_LIBS-'/usr/local/lib/R/site-library:/usr/local/lib/R/libra
 ## Set default CRAN repo
 RUN echo 'options("repos"="http://cran.rstudio.com")' >> /usr/local/lib/R/etc/Rprofile.site
 
+##### Not using littler ##### 
 ## to also build littler against RD
 ##   1)	 apt-get install git autotools-dev automake
 ##   2)	 use CC from RD CMD config CC, ie same as R
@@ -116,15 +116,15 @@ RUN echo 'options("repos"="http://cran.rstudio.com")' >> /usr/local/lib/R/etc/Rp
 ##   ./bootstrap
 
 ## Check out littler
-RUN cd /tmp \
-	&& git clone https://github.com/eddelbuettel/littler.git
-
-RUN cd /tmp/littler \
-	&& CC="clang-3.5 -fsanitize=undefined -fno-sanitize=float-divide-by-zero,vptr,function -fno-sanitize-recover" PATH="/usr/local/lib/R/bin/:$PATH" ./bootstrap \
-	&& ./configure --prefix=/usr \
-	&& make \
-	&& make install \
-	&& cp -vax examples/*.r /usr/local/bin 
+## RUN cd /tmp \
+## 	&& git clone https://github.com/eddelbuettel/littler.git
+## 
+## RUN cd /tmp/littler \
+## 	&& CC="clang-3.5 -fsanitize=undefined -fno-sanitize=float-divide-by-zero,vptr,function -fno-sanitize-recover" PATH="/usr/local/lib/R/bin/:$PATH" ./bootstrap \
+## 	&& ./configure --prefix=/usr \
+## 	&& make \
+## 	&& make install \
+## 	&& cp -vax examples/*.r /usr/local/bin 
 
 RUN cd /usr/local/bin \
 	&& mv R Rdevel \
