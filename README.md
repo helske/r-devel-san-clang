@@ -1,6 +1,8 @@
 
 ## R-devel SAN using Clang: R development binaries with Sanitizer support
 
+**I needed to rebuild r-devel-san-clang image for latest R-devel, but couldn't manage the build with `littler`, so this is a image without it and `autotools-dev` and `automake`.**
+
 The [Writing R Extensions manual](http://cran.r-project.org/doc/manuals/r-devel/R-exts.html)
 details in [Section 4.3](http://cran.r-project.org/doc/manuals/r-devel/R-exts.html#Checking-memory-access)
 how to check memory access.  Two sections are devoted to
