@@ -11,6 +11,7 @@ RUN apt-get update -qq \
 	&& apt-get dist-upgrade -y
 
 ##### Not using littler so autotools-dev and automake are not needed #####
+##### But add r-cran-rgl which is need by igraph
 ## From the Build-Depends of the Debian R package, plus subversion, and clang-3.5
 ## 
 ## Also add   git autotools-dev automake  so that we can build littler from source
@@ -19,6 +20,7 @@ RUN apt-get update -qq \
 	&& apt-get install -t unstable -y --no-install-recommends \
 		bash-completion \
 		bison \
+		r-cran-rgl \
 		clang-3.5 \
 		debhelper \
 		default-jdk \
